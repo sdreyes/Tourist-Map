@@ -58,6 +58,8 @@ $("#search-btn").on("click", function(event) {
       var venueAddress = venues[i].location.formattedAddress[0];
       var venueCity = venues[i].location.formattedAddress[1];
       var addBtn = $("<button>").addClass("btn btn-sm mr-2 btn-info").text("Add to Map");
+      addBtn.attr("data-lng", venues[i].location.lng)
+      addBtn.attr("data-lat", venues[i].location.lat)
       flexDiv.append(addBtn, venueName)
       newCol.append(hr, flexDiv, br, venueAddress, br, venueCity);
       newRow.append(newCol);
