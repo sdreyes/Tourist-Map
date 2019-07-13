@@ -4,39 +4,25 @@ function initMap() {
 
   map = new google.maps.Map(
     document.getElementById('map'),
-    { center: new google.maps.LatLng(39.952583, -75.165222), zoom: 16 });
+    { center: new google.maps.LatLng(39.952583, -75.165222), zoom: 10 });
 
-  var features = [
-    {
-      position: new google.maps.LatLng(39.952583, -75.165222),
-    }, {
-      position: new google.maps.LatLng(39.952583, -75.165222),
-    }, {
-      position: new google.maps.LatLng(39.952583, -75.165222),
-    }
-  ];
-
-  for (var i = 0; i < features.length; i++) {
+  $(document).on("click", ".add-to-map-btn", function() {
+    var lat = parseFloat($(this).attr("data-lat"));
+    var lng = parseFloat($(this).attr("data-lng"));
+    console.log(lat);
     var marker = new google.maps.Marker({
-      position: features[i].position,
+      position: new google.maps.LatLng(lat, lng),
       icon: "https://www.google.com/mapfiles/arrow.png",
       map: map
     });
-  };
-
-  $(document).on("click", "body", function() {
-    // var marker = new google.maps.Marker({
-    //   position: new google.maps.LatLng(-33.914139, 151.240704),
-    //   icon: icons["test"].icon,
-    //   map: map
-    // });
-    // console.log("hi");
+    console.log("hi");
   })
 
 }
 
 $("#search-btn").on("click", function(event) {
   event.preventDefault();
+  $("#search-results").empty();
   var searchTerm = $("#search-box").val().trim();
   console.log(searchTerm);
 
@@ -57,7 +43,7 @@ $("#search-btn").on("click", function(event) {
       var venueName = $("<h5>").text(venues[i].name);
       var venueAddress = venues[i].location.formattedAddress[0];
       var venueCity = venues[i].location.formattedAddress[1];
-      var addBtn = $("<button>").addClass("btn btn-sm mr-2 btn-info").text("Add to Map");
+      var addBtn = $("<button>").addClass("btn btn-sm mr-2 btn-info add-to-map-btn").text("Add to Map");
       addBtn.attr("data-lng", venues[i].location.lng)
       addBtn.attr("data-lat", venues[i].location.lat)
       flexDiv.append(addBtn, venueName)
